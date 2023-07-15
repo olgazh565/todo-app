@@ -10,13 +10,14 @@ export const addTaskPage = (task, list) => {
     list.append(createRow(task));
 };
 
-export const renderToDoApp = () => {
+export const renderToDoApp = key => {
     const container = document.querySelector('.app-container');
     container.classList.add(
-            'vh-100', 'w-100', 'd-flex', 'align-items-center', 'flex-column',
+            'vh-100', 'w-100', 'd-flex', 'align-items-center',
+            'flex-column', 'pt-3',
     );
 
-    const title = createTitle();
+    const title = createTitle(key);
     const form = createForm();
     const {tableWrapper, table} = createTable();
 

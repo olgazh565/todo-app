@@ -1,6 +1,7 @@
-export const createTitle = () => {
+export const createTitle = key => {
     const title = document.createElement('h3');
-    title.textContent = 'Todo App';
+    title.classList.add('mb-3');
+    title.textContent = `${key}, приветствую в Todo App!`;
 
     return title;
 };
@@ -115,8 +116,6 @@ export const createModal = () => {
     modalForm.classList.add('form', 'modal-form');
 
     modalForm.insertAdjacentHTML('beforeend', `
-        <button class="close" type="button" aria-label="Закрыть окно">
-        </button>
         <h5 class="modal-title mb-3">
             Приветствую в приложении для управления задачами - ToDo
         </h5>

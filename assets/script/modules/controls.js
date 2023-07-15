@@ -19,22 +19,19 @@ const addFocus = () => {
 };
 
 const blockFormBtns = () => {
-    const submitBtn = document.querySelector('.btn-primary');
-    const resetBtn = document.querySelector('.btn-warning');
-    submitBtn.disabled = true;
-    resetBtn.disabled = true;
+    const formBtns = document.querySelectorAll('.btn-primary, .btn-warning');
+    formBtns.forEach(btn => btn.disabled = true);
 
-    return {submitBtn, resetBtn};
+    return {formBtns};
 };
 
 const buttonsControl = () => {
     const input = document.querySelector('.form-input');
-    const {submitBtn, resetBtn} = blockFormBtns();
+    const {formBtns} = blockFormBtns();
 
     input.addEventListener('input', () => {
         if (input.value.length > 0) {
-            submitBtn.disabled = false;
-            resetBtn.disabled = false;
+            formBtns.forEach(btn => btn.disabled = false);
         } else {
             blockFormBtns();
         }
@@ -141,23 +138,16 @@ const modalControl = () => {
         setTimeout(addFocus, 100);
     });
 
-    modalOverlay.addEventListener('click', (e) => {
-        const target = e.target;
-        if (target === modalOverlay ||
-            target.closest('.close')) {
-            closeModal();
-        }
-    });
-
     return {
         closeModal,
+        modalOverlay,
         modalForm,
     };
 };
 
 const init = key => {
     const data = getStorage(key);
-    const {form, list} = renderToDoApp();
+    const {form, list} = renderToDoApp(key);
     setTimeout(addFocus, 400);
     blockFormBtns();
     buttonsControl();
@@ -170,9 +160,9 @@ const init = key => {
 };
 
 export const initToDo = () => {
-    const {closeModal, modalForm} = modalControl();
+    const {closeModal, modalOverlay, modalForm} = modalControl();
 
-    modalForm.addEventListener('click', (e) => {
+    modalOverlay.addEventListener('click', (e) => {
         const target = e.target;
         const userName = document.querySelector('.modal-input');
 
