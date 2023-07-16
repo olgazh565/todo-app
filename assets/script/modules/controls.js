@@ -161,10 +161,10 @@ const init = key => {
 
 export const initToDo = () => {
     const {closeModal, modalOverlay, modalForm} = modalControl();
+    const userName = document.querySelector('.modal-input');
 
     modalOverlay.addEventListener('click', (e) => {
         const target = e.target;
-        const userName = document.querySelector('.modal-input');
 
         if (userName.value.length > 0) {
             if (target.closest('.btn-outline-primary')) {
@@ -175,5 +175,16 @@ export const initToDo = () => {
             }
         }
         userName.focus();
+    });
+
+    modalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && userName.value.length > 0) {
+            closeModal();
+            init(userName.value);
+        }
     });
 };
